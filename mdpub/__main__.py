@@ -6,14 +6,16 @@ from ebooklib import epub
 filename = sys.argv[1]
 output_filename = sys.argv[2]
 
+
 def get_title(doc):
     # First heading becomes title
     title = ""
     for node in doc.children:
         if isinstance(node, mistletoe.block_token.Heading):
-            title = ''.join([c.content for c in node.children])
+            title = "".join([c.content for c in node.children])
             break
     return title
+
 
 def get_top_heading(doc):
     top_level = 6
@@ -23,7 +25,8 @@ def get_top_heading(doc):
 
     return top_level
 
-with open(filename, 'r') as fin:
+
+with open(filename, "r") as fin:
     doc = mistletoe.Document(fin)
 
     top_level = get_top_heading(doc)
@@ -36,7 +39,7 @@ with open(filename, 'r') as fin:
 wedge = f"\n<h{top_level+1}"
 chapters = rendered.split(wedge)
 chapters = [wedge + c for c in chapters]
-chapters[0] = chapters[0][len(wedge):]
+chapters[0] = chapters[0][len(wedge) :]
 
 book = epub.EpubBook()
 
@@ -53,8 +56,8 @@ toc = []
 book.spine = ["nav"]
 
 for i, chapter in enumerate(chapters):
-    first_line = chapter.strip().split('\n')[0]
-    chapter_title = re.sub(r'<.+?>', '', first_line)
+    first_line = chapter.strip().split("\n")[0]
+    chapter_title = re.sub(r"<.+?>", "", first_line)
 
     c = epub.EpubHtml(title=chapter_title, file_name=f"{i}.xhtml", lang="en")
     c.content = chapter
