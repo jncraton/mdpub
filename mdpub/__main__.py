@@ -41,13 +41,6 @@ def create_epub(filename, output_filename):
 
     book = epub.EpubBook()
 
-    # set metadata
-    book.set_identifier("isbn")
-    book.set_title("title")
-    book.set_language("en")
-
-    book.add_author("author")
-
     # create chapters
 
     toc = []
