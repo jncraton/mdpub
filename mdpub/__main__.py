@@ -5,7 +5,10 @@ from ebooklib import epub
 
 
 def get_title(doc):
-    # First heading becomes title
+    """Returns title for a document
+
+    First heading becomes title
+    """
     title = ""
     for node in doc.children:
         if isinstance(node, mistletoe.block_token.Heading):
