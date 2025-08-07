@@ -51,7 +51,7 @@ def create_epub(filename, output_filename):
     # create chapters
 
     toc = []
-    book.spine = ["nav"]
+    book.spine = []
 
     for i, chapter in enumerate(chapters):
         first_line = chapter.strip().split("\n")[0]
