@@ -8,3 +8,4 @@ format:
 
 clean:
 	rm -f *.epub
+	rm -rf mdpub/__pycache__
