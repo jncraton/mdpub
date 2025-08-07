@@ -3,6 +3,7 @@ import mistletoe
 from ebooklib import epub
 
 filename = sys.argv[1]
+output_filename = sys.argv[2]
 
 def get_title(doc):
     # First heading becomes title
@@ -52,4 +53,4 @@ book.add_item(epub.EpubNav())
 book.spine = ["nav", c1]
 
 # write to the file
-epub.write_epub(filename + ".epub", book, {})
+epub.write_epub(output_filename, book, {})
