@@ -1,5 +1,6 @@
 import sys
 import mistletoe
+import re
 from ebooklib import epub
 
 filename = sys.argv[1]
@@ -23,7 +24,19 @@ def get_top_heading(doc):
     return top_level
 
 with open(filename, 'r') as fin:
-    rendered = mistletoe.markdown(fin)
+    doc = mistletoe.Document(fin)
+
+    top_level = get_top_heading(doc)
+    title = get_title(doc)
+
+    with mistletoe.HtmlRenderer() as renderer:
+        rendered = renderer.render(doc)
+
+# Split by second highest heading, prepend content we split by
+wedge = f"\n<h{top_level+1}"
+chapters = rendered.split(wedge)
+chapters = [wedge + c for c in chapters]
+chapters[0] = chapters[0][len(wedge):]
 
 book = epub.EpubBook()
 
@@ -34,23 +47,26 @@ book.set_language("en")
 
 book.add_author("author")
 
-# create chapter
-c1 = epub.EpubHtml(title="title", file_name="1.xhtml", lang="en")
-c1.content = rendered
-book.add_item(c1)
+# create chapters
+
+toc = []
+book.spine = ["nav"]
+
+for i, chapter in enumerate(chapters):
+    first_line = chapter.strip().split('\n')[0]
+    chapter_title = re.sub(r'<.+?>', '', first_line)
+
+    c = epub.EpubHtml(title=chapter_title, file_name=f"{i}.xhtml", lang="en")
+    c.content = chapter
+    book.add_item(c)
+    book.spine.append(c)
+    toc.append(c)
 
 # define Table Of Contents
-book.toc = (
-    epub.Link("1.xhtml", "1", "intro"),
-    (epub.Section("Simple book"), (c1,)),
-)
+book.toc = tuple(toc)
 
-# add default NCX and Nav file
+# add default NCX
 book.add_item(epub.EpubNcx())
-book.add_item(epub.EpubNav())
-
-# basic spine
-book.spine = ["nav", c1]
 
 # write to the file
 epub.write_epub(output_filename, book, {})
