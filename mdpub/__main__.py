@@ -4,6 +4,14 @@ from ebooklib import epub
 
 filename = sys.argv[1]
 
+def get_top_heading(doc):
+    top_level = 6
+    for node in doc.children:
+        if isinstance(node, mistletoe.block_token.Heading):
+            top_level = min(top_level, node.level)
+
+    return top_level
+
 with open(filename, 'r') as fin:
     rendered = mistletoe.markdown(fin)
 
