@@ -1,6 +1,6 @@
 all: constitution.epub
 
-constitution.epub: examples/constitution.md
+%.epub: examples/%.md
 	python3 -m mdpub $< $@
 
 format:
