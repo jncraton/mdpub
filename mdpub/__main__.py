@@ -41,8 +41,7 @@ def create_epub(filename, output_filename):
 
     book = epub.EpubBook()
 
-    # create chapters
-
+    # Create chapters
     toc = []
     book.spine = []
 
@@ -56,10 +55,7 @@ def create_epub(filename, output_filename):
         book.spine.append(c)
         toc.append(c)
 
-    # define Table Of Contents
     book.toc = tuple(toc)
-
-    # add default NCX
     book.add_item(epub.EpubNcx())
 
     # write to the file
