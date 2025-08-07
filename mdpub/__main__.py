@@ -4,6 +4,15 @@ from ebooklib import epub
 
 filename = sys.argv[1]
 
+def get_title(doc):
+    # First heading becomes title
+    title = ""
+    for node in doc.children:
+        if isinstance(node, mistletoe.block_token.Heading):
+            title = ''.join([c.content for c in node.children])
+            break
+    return title
+
 def get_top_heading(doc):
     top_level = 6
     for node in doc.children:
