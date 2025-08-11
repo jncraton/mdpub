@@ -20,7 +20,9 @@ def get_title(doc):
 def get_top_heading(doc):
     top_level = 6
     for node in doc.children:
-        if isinstance(node, mistletoe.block_token.Heading):
+        if isinstance(node, mistletoe.block_token.Heading) or isinstance(
+            node, mistletoe.block_token.SetextHeading
+        ):
             top_level = min(top_level, node.level)
 
     return top_level
