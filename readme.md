@@ -1,7 +1,7 @@
 mdpub
 =====
 
-An ebook format format with a plaintext featureset
+An ebook format with a plaintext featureset
 
 mdpub is:
 
