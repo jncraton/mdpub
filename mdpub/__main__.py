@@ -3,6 +3,7 @@ import mistletoe
 import re
 from ebooklib import epub
 
+epub.CHAPTER_XML = b'<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"></html>'
 
 def get_title(doc):
     """Returns title for a document
