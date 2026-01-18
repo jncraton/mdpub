@@ -55,7 +55,7 @@ def create_epub(filename, output_filename):
         first_line = chapter.strip().split("\n")[0]
         chapter_title = re.sub(r"<.+?>", "", first_line)
 
-        c = epub.EpubHtml(title=chapter_title, file_name=f"{i}.xhtml", lang="en")
+        c = epub.EpubHtml(title=chapter_title, file_name=f"{i}.xhtml")
         c.content = chapter
         book.add_item(c)
         book.spine.append(c)
