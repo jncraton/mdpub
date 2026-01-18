@@ -66,7 +66,22 @@ def create_epub(filename, output_filename):
     book.add_item(epub.EpubNcx())
 
     # write to the file
-    epub.write_epub(output_filename, book, {"compresslevel": 9})
+    epub.write_epub(
+        output_filename,
+        book,
+        {
+            "epub2_guide": True,
+            "epub3_landmark": True,
+            "epub3_pages": True,
+            "landmark_title": "Guide",
+            "pages_title": "Pages",
+            "spine_direction": True,
+            "package_direction": False,
+            "play_order": {"enabled": True, "start_from": 1},
+            "raise_exceptions": False,
+            "compresslevel": 9,
+        },
+    )
 
 
 if __name__ == "__main__":
