@@ -5,6 +5,7 @@ from ebooklib import epub
 
 epub.CHAPTER_XML = b'<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"></html>'
 
+
 def get_title(doc):
     """Returns title for a document
 
@@ -65,7 +66,7 @@ def create_epub(filename, output_filename):
     book.add_item(epub.EpubNcx())
 
     # write to the file
-    epub.write_epub(output_filename, book, {})
+    epub.write_epub(output_filename, book, {"compresslevel": 9})
 
 
 if __name__ == "__main__":
