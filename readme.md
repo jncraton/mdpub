@@ -15,4 +15,4 @@ mdpub is a subset of epub2 with the following features explicity disallowed:
 - Fonts
 - Nav pages
 
-An mdpub document is essentially a markdown document that has been split into chapters, converted to html, mapped to a table of contents, and compressed into the standard epub package.
+An mdpub document is a markdown document that has been split into chapters, converted to html, mapped to a table of contents, and compressed into an epub container.
