@@ -2,6 +2,7 @@ all: constitution.epub
 
 %.epub: examples/%.md
 	python3 -m mdpub $< $@
+	wc $@
 
 format:
 	black mdpub/*.py
